@@ -13,6 +13,8 @@ contract JointlyOwned{
 		addr = msg.sender;
 		if(addr == primaryOwner || addr == secondaryOwner){
 			_;
+		}else{
+			throw;
 		}
 	}
 
