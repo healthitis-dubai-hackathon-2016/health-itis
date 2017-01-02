@@ -1,8 +1,11 @@
 pragma solidity ^0.4.7;
-
-contract PatientRecord{
-	address private patient;
+import "./JointlyOwned.sol";
+contract PatientRecord is JointlyOwned{
 	address private previousRecord;
+	function PatientRecord(address patientAddress, address prevRec){
+		primaryOwner = patientAddress;
+		previousRecord = prevRec;
+	}
 
 	//patient's history record data goes here
 	//types to be determined
@@ -13,7 +16,7 @@ contract PatientRecord{
 	// type3 field3;
 	// ...
 
-	function getPreviousRecord() returns (PatientRecord previous){
+	function getPreviousRecord() onlyowner returns (PatientRecord previous){
 		previous = PatientRecord(previousRecord);	
 	}
 
