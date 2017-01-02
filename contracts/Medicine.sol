@@ -35,33 +35,13 @@ contract Medicine is Mortal{
 		frequency = _freq;
 		notes = _notes;
 	}
-	function getName() onlyowner returns (string){
-		return name;
-	}
 
-	/*
-		returns an unsigned 8-bit integer in the following format
-		xxxxx(0/1)(0/1)(0/1)
-			   ^	^	 ^
-			   a 	b 	 c
-
-		a-> dinner
-		b-> lunch
-		c-> breakfast
-	*/
-	function getMedicineTimes() onlyowner returns (uint8){
-		uint8 times = 0;
-		if(breakfast){times = times | 1;}
-		if(lunch){times = times | 2;}
-		if(dinner){times = times | 4;}
-		return times;
-	}
-
-	function getFrequency() onlyowner returns (uint8 freq){
-		freq = frequency;
-	}
-
-	function getNotes() onlyowner returns (string _notes){
+	function getData() onlyowner returns (string _name, bool _b, bool _l, bool _d, uint8 _f, string _notes){
+		_name = name;
+		_b = breakfast;
+		_l = lunch;
+		_d = dinner;
+		_f = frequency;
 		_notes = notes;
 	}
 }
