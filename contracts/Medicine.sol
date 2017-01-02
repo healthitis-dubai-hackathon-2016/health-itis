@@ -1,4 +1,5 @@
 pragma solidity ^0.4.7;
+import "./Mortal.sol";
 /*
 	Display the medicine data in the following way:
 	__________________________________________________________________
@@ -17,12 +18,12 @@ pragma solidity ^0.4.7;
 	Table is just for demonstration purpose, don't take it literally
 	Each medicine is one record in the above table
 */
-contract Medicine is mortal{
+contract Medicine is Mortal{
 	string private name;
 	bool private breakfast;
 	bool private lunch;
 	bool private dinner;
 	uint8 private frequency;
 	string private notes;
-	
+
 }
