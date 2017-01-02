@@ -7,11 +7,9 @@ pragma solidity ^0.4.7;
 contract JointlyOwned{
 	address primaryOwner;
 	address secondaryOwner;
-	address memory addr;
 
 	modifier onlyowner(){
-		addr = msg.sender;
-		if(addr == primaryOwner || addr == secondaryOwner){
+		if(msg.sender == primaryOwner || msg.sender == secondaryOwner){
 			_;
 		}else{
 			throw;
