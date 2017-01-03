@@ -38,5 +38,5 @@ contract PatientDatabase{
 			patientPasscodes[userEthAddress] = newPasscode;
 		}
 	}
-	
+		
 }
