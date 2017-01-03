@@ -1,0 +1,6 @@
+{
+  "name": "health-itis",
+  "scripts": {
+    "buildtoolkit": "browserify toolkit.js --s Tools --o app/javascripts/toolkit.js"
+  }
+}
