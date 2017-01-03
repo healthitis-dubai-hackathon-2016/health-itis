@@ -2,6 +2,8 @@ module.exports = {
   build: {
     "index.html": "index.html",
     "app.js": [
+      "javascripts/toolkit.js",
+      "javascripts/ipfs-helper.js",
       "javascripts/app.js"
     ],
     "app.css": [
