@@ -2,6 +2,7 @@ pragma solidity ^0.4.7;
 import "./PatientForm.sol";
 import "./DoctorForm.sol";
 import "./DualList.sol";
+import "./StringUtils.sol";
 
 
 contract Patient{
@@ -22,7 +23,7 @@ contract Patient{
 	DualList.list medicalConditions;
 	//List of allergies
 	DualList.list allergies;
-	
+
 	function makeConditionInactive(uint index){
 		medicalConditions.toggleActive(index);
 	}
@@ -40,22 +41,28 @@ contract Patient{
 	// 	conditionStatuses = cs;
 	// }
 
-	function getAllergies() returns (string[] allergy){
+	// Since we cannot pass array we use string seperated with ';'
+	// and then we can process later
+	function getAllergies() returns (string allergy){
 		uint i;
 		for(i = 0; i<allergies.length; i++){
-			allergy[i] = allergies.valueAt(i); 
+			allergy = StringUtils.strConcat(allergy, ";", allergies.valueAt(i));
 		}
+		return allergy;
 	}
 
-	function getActiveMedicalConditions() returns (string[] conditions){
+	// Since we cannot pass array we use string seperated with ';'
+	// and then we can process later
+	function getActiveMedicalConditions() returns (string conditions){
 		uint i;
-		for(i = medicalConditions.firstActive(); 
-			medicalConditions.hasNextActive(i); 
-			i = medicalConditions.nextActive){
-
-			conditions[i] = medicalConditions.valueAt(i);						
+		for(i = medicalConditions.firstActive();
+			medicalConditions.hasNextActive(i);
+			i = medicalConditions.nextActive(i)){
+				conditions = StringUtils.strConcat(conditions, ";", medicalConditions.valueAt(i));
 		}
+		return conditions;
 	}
+
 	function addMedicalCondition(string condition, bool active){
 		medicalConditions.insert(condition, active);
 	}

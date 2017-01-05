@@ -2,6 +2,7 @@
 config/development/contracts.json
 config/development/*.sol.js
 config/test/contracts.json
+node_modules
 build
 dist
 

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.7;
 library DualList{
-	
+
 	struct data{
 		bool active;
 		string value;
@@ -11,7 +11,7 @@ library DualList{
 		uint length;
 	}
 
-	function dataAt(list storage self, uint index) returns (string val, bool ac){
+	function dataAt(list storage self, uint index) internal returns (string val, bool ac){
 		if(index < self.length){
 			val = self.item[index].value;
 			ac = self.item[index].active;
@@ -20,7 +20,7 @@ library DualList{
 		}
 	}
 
-	function valueAt(list storage self, uint index) returns (string){
+	function valueAt(list storage self, uint index) internal returns (string){
 		if(index < self.length){
 			return self.item[index].value;
 		}else{
@@ -28,7 +28,7 @@ library DualList{
 		}
 	}
 
-	function statusAt(list storage self, uint index) returns (bool){
+	function statusAt(list storage self, uint index) internal returns (bool){
 		if(index < self.length){
 			return self.item[index].active;
 		}else{
@@ -46,7 +46,7 @@ library DualList{
 		self.item[index].active = !self.item[index].active;
 	}
 
-	function firstActive(list storage self) returns (uint){
+	function firstActive(list storage self) internal returns (uint){
 		uint index;
 		for(index=0; !self.item[index].active; index++){
 			if(index>=self.length)
@@ -55,7 +55,7 @@ library DualList{
 		return index;
 	}
 
-	function hasNextActive(list storage self, uint index) returns (bool){
+	function hasNextActive(list storage self, uint index) internal returns (bool){
 		uint i;
 		for(i = index; !self.item[i].active; i++){
 			if(i>=self.length){
@@ -65,7 +65,7 @@ library DualList{
 		return true;
 	}
 
-	function nextActive(list storage self, uint index) returns (uint){
+	function nextActive(list storage self, uint index) internal returns (uint){
 		uint i;
 		for(i=index; !self.item[i].active; i++){
 			if(i >= self.length){
@@ -75,14 +75,14 @@ library DualList{
 		return i;
 	}
 
-	function firstInactive(list storage self) returns (uint index){
+	function firstInactive(list storage self) internal returns (uint index){
 		for(index=0; self.item[index].active; index++){
 			if(index>=self.length)
 				return self.length;
 		}
 	}
 
-	function hasNextInactive(list storage self, uint index) returns (bool){
+	function hasNextInactive(list storage self, uint index) internal returns (bool){
 		uint i;
 		for(i = index; self.item[i].active; i++){
 			if(i>=self.length){
@@ -92,7 +92,7 @@ library DualList{
 		return true;
 	}
 
-	function nextInactive(list storage self, uint index) returns (uint){
+	function nextInactive(list storage self, uint index) internal returns (uint){
 		uint i;
 		for(i=index; self.item[i].active; i++){
 			if(i >= self.length){
