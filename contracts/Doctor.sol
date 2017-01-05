@@ -7,6 +7,8 @@ import "./Medicine.sol";
 
 contract Doctor{
 
+	address private uid;//doctors's ethereum address
+
 	struct patientData{
 		Patient patient;
 		PatientForm pForm;
@@ -14,6 +16,10 @@ contract Doctor{
 	}
 
 	patientData[] private patients;
+
+	function Doctor(address _uid) {
+		uid = _uid;
+	}
 
 	function takeOwnership(DoctorForm form){
 		address previous = form.getPastDoctorForm();

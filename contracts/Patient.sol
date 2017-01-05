@@ -24,6 +24,20 @@ contract Patient{
 	//List of allergies
 	DualList.list allergies;
 
+	function Patient(address _uid, int32 _dob, bool _sex){
+		uid = _uid;
+		dateTimeOfBirth = _dob;
+		sex = _sex;
+	}
+
+	function getPatientDateTimeOfBirth() returns (int32){
+		return dateTimeOfBirth;
+	}
+
+	function getPatientSex() returns (bool) {
+		return sex;
+	}
+
 	function makeConditionInactive(uint index){
 		medicalConditions.toggleActive(index);
 	}
@@ -66,7 +80,30 @@ contract Patient{
 	function addMedicalCondition(string condition, bool active){
 		medicalConditions.insert(condition, active);
 	}
+
 	function addAllergy(string allergy){
 		allergies.insert(allergy, true);
+	}
+
+	//add algeries of a patient
+	function addAllergiesOfPatient(string allergyString) {
+		string[] allergies = StringUtils.multiSplit(allergyString, ";");
+
+		uint i;
+		for(i = 0; i<allergies.length; i++){
+			addAllergy(allergies[i]);
+		}
+	}
+
+	//add medical condition of patient
+	function addMedicalConditionsOfPatient(string conditionString, bool[] isActive) {
+		string[] conditions = StringUtils.multiSplit(conditionString, ";");
+
+		if(conditions.length != isActive.length) throw;
+
+		uint i;
+		for(i = 0; i<conditions.length; i++){
+			addMedicalCondition(conditions[i], isActive[i]);
+		}
 	}
 }
