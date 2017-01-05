@@ -2,7 +2,7 @@ pragma solidity ^0.4.7;
 import "./JointlyOwned.sol";
 /*
 		History of presenting illness (doc)
-		
+
 		Self medication taken (patient)
 
 		Additional known conditions (patient)
@@ -11,7 +11,7 @@ import "./JointlyOwned.sol";
 
 		Patient is conscious, cooperative, well-oriented to time, place, person (Doctor)
 
-		doctor's form: 
+		doctor's form:
 		General examination
 		Systemic examination
 
@@ -25,18 +25,22 @@ import "./JointlyOwned.sol";
 */
 contract DoctorForm is JointlyOwned{
 	address pastDoctorForm;
+	address patient;
+
 	string private historyOfPresentingIllness;
 	string private generalExamination;
 	string private systemicExamination;
 	string private preliminaryDiagnosis;
-	string FinalDiagnosis;
+	string private FinalDiagnosis;
 	bool private conscious;
 	bool private cooperative;
 	bool private oriented;
 	int64 recallDate;//date of recall in UNIX time
 
-	function DoctorForm(address past){
+	function DoctorForm(address doctorAddress, address past, address patientAddress){
+		primaryOwner = doctorAddress;
 		pastDoctorForm = past;
+		patient = patientAddress;
 	}
 
 	function getPastDoctorForm() returns (address){
@@ -61,7 +65,7 @@ contract DoctorForm is JointlyOwned{
 
 	function setSystemicExamination(string _se) onlyowner{
 		systemicExamination = _se;
-	} 
+	}
 
 	function getSystemicExamination() onlyowner returns (string se){
 		se = systemicExamination;
@@ -73,6 +77,14 @@ contract DoctorForm is JointlyOwned{
 
 	function getPreliminaryDiagnosis() onlyowner returns (string pd){
 		pd = preliminaryDiagnosis;
+	}
+
+	function setFinalDiagnosis(string _fd) onlyowner{
+		FinalDiagnosis = _fd;
+	}
+
+	function getFinalDiagnosis() onlyowner returns (string fd){
+		fd = FinalDiagnosis;
 	}
 
 	function setConsciousCooperativeOriented(bool _c, bool _co, bool _o) onlyowner{

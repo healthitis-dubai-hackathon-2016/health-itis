@@ -15,6 +15,10 @@ contract PatientDatabase{
 		exists = (address(patients[addr]) != 0);
 	}
 
+	function getPatientFromUID(address uid) returns (Patient) {
+		return patients[uid];
+	}
+
 	//adds a patient to the database
 	function addPatient(address userAddress, string passcode, int32 dateTimeOfBirth, bool sex){
 		if(!checkPatientAddressExistence(userAddress)){

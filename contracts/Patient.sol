@@ -106,4 +106,37 @@ contract Patient{
 			addMedicalCondition(conditions[i], isActive[i]);
 		}
 	}
+
+	function fillPatientForm(string chiefComplaint, string nameString,
+		bool[] breakfast, bool[] lunch, bool[] dinner, uint8[] frequency,
+		string notesString, uint8[] dosage) {
+
+			string[] name = StringUtils.multiSplit(nameString, ";");
+			string[] notes = StringUtils.multiSplit(notesString, ";");
+
+			// Check if length of all arrays is same
+			if(!(name.length == breakfast.length && breakfast.length == lunch.length
+				&& lunch.length == dinner.length && dinner.length == frequency.length
+				&& frequency.length == notes.length && notes.length == dosage.length)){
+					throw;
+			}
+
+			Medicine[] memory medicationList = new Medicine[](name.length);
+
+			uint8 i;
+			for(i = 0; i < name.length; i++){
+				Medicine m = new Medicine(uid, name[i], breakfast[i], lunch[i],
+					dinner[i], frequency[i], notes[i], dosage[i]);
+				medicationList[i] = m;
+			}
+
+			PatientForm form = new PatientForm(uid, lastFilledForm);
+			form.setChiefComplaint(chiefComplaint);
+			form.setSelfMedicationList(medicationList);
+			lastFilledForm = form;
+	}
+
+	function getLastFilledForm() returns (PatientForm form){
+		form = lastFilledForm;
+	}
 }
