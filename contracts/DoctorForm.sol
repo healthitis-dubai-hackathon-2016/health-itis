@@ -37,6 +37,9 @@ contract DoctorForm is JointlyOwned{
 	bool private oriented;
 	int64 recallDate;//date of recall in UNIX time
 
+	//IPFS Files Hash
+	int256[] ipfsHashes;
+
 	function DoctorForm(address doctorAddress, address past, address patientAddress){
 		primaryOwner = doctorAddress;
 		pastDoctorForm = past;
@@ -97,5 +100,13 @@ contract DoctorForm is JointlyOwned{
 		c = conscious;
 		co = cooperative;
 		o = oriented;
+	}
+
+	function addIPFSHash(int256 hash){
+		ipfsHashes.push(hash);
+	}
+
+	function getIPFSHashes(int256[] hashes){
+		hashes = ipfsHashes;
 	}
 }
