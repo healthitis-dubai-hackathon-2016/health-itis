@@ -14,7 +14,7 @@ contract Patient{
 
 	//date (and preferably time) of birth
 	//in the UNIX format
-	int32 dateTimeOfBirth;
+	int64 dateTimeOfBirth;
 
 	//sex of the patient, true if female, false if male
 	bool sex;
@@ -24,13 +24,17 @@ contract Patient{
 	//List of allergies
 	DualList.list allergies;
 
-	function Patient(address _uid, int32 _dob, bool _sex){
+	function Patient(address _uid, int64 _dob, bool _sex){
 		uid = _uid;
 		dateTimeOfBirth = _dob;
 		sex = _sex;
 	}
 
-	function getPatientDateTimeOfBirth() returns (int32){
+	function getPatientUID() returns (address){
+		return uid;
+	}
+
+	function getPatientDateTimeOfBirth() returns (int64){
 		return dateTimeOfBirth;
 	}
 

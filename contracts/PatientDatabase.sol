@@ -20,7 +20,7 @@ contract PatientDatabase{
 	}
 
 	//adds a patient to the database
-	function addPatient(address userAddress, string passcode, int32 dateTimeOfBirth, bool sex){
+	function addPatient(address userAddress, string passcode, int64 dateTimeOfBirth, bool sex){
 		if(!checkPatientAddressExistence(userAddress)){
 			patientPasscodes[userAddress] = passcode;
 			Patient patient = new Patient(userAddress, dateTimeOfBirth, sex);

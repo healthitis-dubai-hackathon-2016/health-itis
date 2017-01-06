@@ -15,6 +15,7 @@ contract Doctor{
 		Patient patient;
 		PatientForm pForm;
 		DoctorForm dForm;
+		bool isActive;
 	}
 
 	patientData[] private patients;
@@ -31,6 +32,26 @@ contract Doctor{
 		}
 	}
 
+	function getPatientData(uint index) returns (address uid, int64 dateTimeOfBirth,
+		bool sex, address patientForm, address doctorForm, bool active){
+
+		patientData data = patients[index];
+		uid = data.patient.getPatientUID();
+		dateTimeOfBirth = data.patient.getPatientDateTimeOfBirth();
+		sex = data.patient.getPatientSex();
+
+		patientForm = data.pForm;
+		doctorForm = data.dForm;
+
+		active = data.isActive;
+	}
+
+	function makePatientInactive(uint index) {
+		if(address(patients[index].dForm) != 0){
+			patients[index].isActive = false;
+		}
+	}
+
 	function fillDoctorForm(address patientAddress, string historyOfPresentingIllness,
 		string generalExamination, string systemicExamination, string preliminaryDiagnosis,
 		string finalDiagnosis, bool conscious, bool cooperative, bool oriented,
@@ -41,6 +62,7 @@ contract Doctor{
 			patients.length++;
 			patients[patients.length-1].patient= p;
 			patients[patients.length-1].pForm = p.getLastFilledForm();
+			patients[patients.length-1].isActive = true;
 
 			DoctorForm form = new DoctorForm(uid, lastDoctorForm, patientAddress);
 			form.setHistoryOfPresentingIllness(historyOfPresentingIllness);
