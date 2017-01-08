@@ -8,8 +8,8 @@ import "./PatientDatabase.sol";
 
 contract Doctor{
 
-	address private uid;//doctors's ethereum address
-	DoctorForm private lastDoctorForm;
+	//doctor's ethereum address
+	address private uid;
 
 	struct patientData{
 		Patient patient;
